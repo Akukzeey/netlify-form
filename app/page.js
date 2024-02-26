@@ -25,7 +25,7 @@ export default function Register() {
             <h1 className='success-header'>Success</h1>
             <p className='success-p-tag'>Your account has been created</p>
             <button className="btn-success button-success btn-sm" type="button">
-              <Link className="nav-link" href='/admission'>CONTINUE</Link>
+              <Link className="nav-link" href='#'>CONTINUE</Link>
             </button>
           </div>
         </div>
@@ -39,8 +39,8 @@ export default function Register() {
             <h1 className='sign-up-header'>Create an Account</h1>
             <Image src='/images/logo-dawah-academy.svg' alt='logo-dawah-academy' className='mb-2' height='100' width='100'/>
           </div>
-          <form name="register" data-netlify="true" method='post' onSubmit={handleFormSubmit} data-netlify-honeypot='bot-field'>
-            <input type='hidden' name='form-name' value='register'/>
+          <form name="contact v3" data-netlify="true" method='post' onSubmit={handleFormSubmit} data-netlify-honeypot='bot-field'>
+            <input type='hidden' name='form-name' value='contact v3'/>
             <div hidden>
               <input name='bot-field'/>
             </div>
