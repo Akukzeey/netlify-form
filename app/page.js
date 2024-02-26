@@ -1,11 +1,8 @@
 export default function Home() {
   return (
    <div>
-     <form name="register" data-netlify="true" method='post' data-netlify-honeypot='bot-field'>
-       <input type='hidden' name='form-name' value='register'/>
-       <div hidden>
-         <input name='bot-field'/>
-       </div>
+     <form name="contact" data-netlify="true" method='post'>
+       <input type='hidden' name='form-name' value='contact'/>
        <div className="mb-lg-4 mb-md-3 mb-2">
          <label htmlFor="your-name" className="form-label">Your Name</label>
          <input type="text" className="form-control" id="your-name" name='your-name' required/>
