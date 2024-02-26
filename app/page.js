@@ -13,7 +13,10 @@ export default function Register() {
     }
   }, []);
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = (event) => {
+
+    event.preventDefault()
+
     setRegistered(true);
     localStorage.setItem('registered', 'true');
   };
