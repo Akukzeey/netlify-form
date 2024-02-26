@@ -1,37 +1,7 @@
 'use client'
-import { useState, useEffect } from 'react';
-import Link from "next/link";
 import Image from "next/image";
 
 export default function Register() {
-  const [registered, setRegistered] = useState(false);
-
-  useEffect(() => {
-    const isRegistered = localStorage.getItem('registered');
-    if (isRegistered === 'true') {
-      setRegistered(true);
-    }
-  }, []);
-
-  const handleFormSubmit = () => {
-    setRegistered(true);
-    localStorage.setItem('registered', 'true');
-  };
-
-  if (registered) {
-    return (
-        <div id='Register-success'>
-          <div className='success-register-container'>
-            <h1 className='success-header'>Success</h1>
-            <p className='success-p-tag'>Your account has been created</p>
-            <button className="btn-success button-success btn-sm" type="button">
-              <Link className="nav-link" href='#'>CONTINUE</Link>
-            </button>
-          </div>
-        </div>
-    );
-  }
-
   return (
       <div id='Register'>
         <div className='sign-up-container'>
@@ -39,7 +9,7 @@ export default function Register() {
             <h1 className='sign-up-header'>Create an Account</h1>
             <Image src='/images/logo-dawah-academy.svg' alt='logo-dawah-academy' className='mb-2' height='100' width='100'/>
           </div>
-          <form name="contact v3" data-netlify="true" method='post' onSubmit={handleFormSubmit} data-netlify-honeypot='bot-field'>
+          <form name="contact v3" data-netlify="true" method='post' onSubmit='submit' data-netlify-honeypot='bot-field'>
             <input type='hidden' name='form-name' value='contact v3'/>
             <div hidden>
               <input name='bot-field'/>
