@@ -54,7 +54,7 @@ export default function Register() {
             </div>
             <div className='mb-lg-4 mb-md-3 mb-2'>
               <label htmlFor="phone-number" className="form-label">Number</label>
-              <input type="tel" className="form-control" id="phone-number" required/>
+              <input type="tel" className="form-control" id="phone-number" name="phone-number" required/>
             </div>
             <div className='d-flex justify-content-center'>
               <input type="submit" className='btn sign-up-btn' value='Sign Up'/>
