@@ -53,7 +53,7 @@ export default function RegisterComponent() {
                 <div className='d-flex align-items-center flex-column mb-lg-4 mb-md-3'>
                     <h1 className='sign-up-header'>Create an Account</h1>
                 </div>
-                <form name="contact v3" data-netlify="true" method='post' onSubmit={handleSubmit} data-netlify-honeypot='bot-field'>
+                <form name="contact v3" data-netlify="true" method='post' onSubmit={handleSubmit} data-netlify-honeypot='bot-field' action='/success/'>
                     <input type='hidden' name='form-name' value='contact v3'/>
                     <div hidden>
                         <input name='bot-field'/>
