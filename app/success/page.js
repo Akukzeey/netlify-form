@@ -1,5 +1,5 @@
 import Link from "next/link";
-export default function Success() {
+export default function Page() {
     return (
         <div id='Register-success'>
             <div className='success-register-container'>
