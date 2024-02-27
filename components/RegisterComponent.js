@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterComponent() {
     const router = useRouter();
@@ -54,7 +54,9 @@ export default function RegisterComponent() {
     }
 
     if (formSubmitted) {
+
         router.push('/success');
+
         return null;
     }
 
