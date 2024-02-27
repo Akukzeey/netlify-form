@@ -38,8 +38,14 @@ export default function RegisterComponent() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Check if the entered email exists in the submissions
         const emailExists = submissions.some(submission => submission.data['user-email'] === email);
         setEmailExists(emailExists);
+
+        // Submit the form only if email doesn't exist
+        if (!emailExists) {
+            e.target.submit();
+        }
     }
 
     return (
