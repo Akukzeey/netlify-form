@@ -27,7 +27,6 @@ export default function RegisterComponent() {
                 console.error('Error:', error);
             }
         }
-
         fetchSubmissions();
     }, []);
 
