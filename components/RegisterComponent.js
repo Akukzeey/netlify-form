@@ -54,9 +54,8 @@ export default function RegisterComponent() {
     }
 
     if (formSubmitted) {
-        // Redirect to success page if form has been successfully submitted
         router.push('/success');
-        return null; // Return null to prevent rendering the form again
+        return null;
     }
 
     return (
