@@ -30,27 +30,40 @@ const MultiStepForm = () => {
 
     return (
         <div>
-            {step === 1 && (
-                <Step1
-                    formData={formData}
-                    setFormData={setFormData}
-                    nextStep={nextStep}
-                />
-            )}
-            {step === 2 && (
-                <Step2
-                    formData={formData}
-                    setFormData={setFormData}
-                    prevStep={prevStep}
-                    nextStep={nextStep}
-                />
-            )}
-            {step === 3 && (
-                <Step3
-                    formData={formData}
-                    handleSubmit={handleSubmit}
-                />
-            )}
+            {/*{step === 1 && (*/}
+            {/*    <Step1*/}
+            {/*        formData={formData}*/}
+            {/*        setFormData={setFormData}*/}
+            {/*        nextStep={nextStep}*/}
+            {/*    />*/}
+            {/*)}*/}
+            {/*{step === 2 && (*/}
+            {/*    <Step2*/}
+            {/*        formData={formData}*/}
+            {/*        setFormData={setFormData}*/}
+            {/*        prevStep={prevStep}*/}
+            {/*        nextStep={nextStep}*/}
+            {/*    />*/}
+            {/*)}*/}
+            {/*{step === 3 && (*/}
+            {/*    <Step3*/}
+            {/*        formData={formData}*/}
+            {/*        handleSubmit={handleSubmit}*/}
+            {/*    />*/}
+            {/*)}*/}
+            <form name="administration-info" data-netlify="true" method='post' onSubmit={handleSubmit} data-netlify-honeypot='bot-field' action="/success" data-netlify-success="/success">
+                <input type='hidden' name='form-name' value='administration-info'/>
+                <div hidden>
+                    <input name='bot-field'/>
+                </div>
+                <input type="text"/>
+
+                {/*<h3>Confirm Details</h3>*/}
+                {/*<p>Name: {formData.name}</p>*/}
+                {/*<p>Email: {formData.email}</p>*/}
+                {/*<button type="button" onClick={prevStep}>Previous</button>*/}
+                <button type="submit">Submit</button>
+            </form>
         </div>
     );
 };
