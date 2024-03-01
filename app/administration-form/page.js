@@ -26,6 +26,7 @@ const MultiStepForm = () => {
             ...formData,
         };
         console.log(mergedFormData);
+        history.push('/success');
     };
 
     return (
