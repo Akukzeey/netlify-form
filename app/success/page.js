@@ -1,5 +1,17 @@
+'use client'
+import {useRouter} from "next/navigation";
+import {useEffect} from "react";
 import Link from "next/link";
 export default function Page() {
+    const router = useRouter();
+
+    useEffect(() => {
+        const formSubmitted = localStorage.getItem('formSubmitted');
+        if (formSubmitted !== 'true') {
+            router.push('/');
+        }
+    }, []);
+
     return (
         <div id='Register-success'>
             <div className='success-register-container'>
