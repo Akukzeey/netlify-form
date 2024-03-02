@@ -28,7 +28,7 @@ const MultiStepForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Submit form data to Netlify
-        fetch('/', {
+        fetch('https://netlifyform11.netlify.app/administration%20Info', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(formData).toString()
@@ -39,6 +39,7 @@ const MultiStepForm = () => {
             })
             .catch(error => console.error('Error submitting form data:', error));
     };
+
 
     return (
         <form name="administration Info" data-netlify="true" method='post' data-netlify-honeypot='bot-field' action="/success" data-netlify-success="/success">
@@ -59,7 +60,10 @@ const MultiStepForm = () => {
             )}
             {currentStep === 3 && (
                 <div>
-                   You have agreed all terms to submit the information
+                    <div className="mb-lg-4 mb-md-3 mb-2">
+                        <label htmlFor="your-name" className="form-label">Your Name</label>
+                        <input type="text" className="form-control" id="your-name" name='your-name' required/>
+                    </div>
                     <button type="button" onClick={handlePrevious}>Previous</button>
                     <button type="submit" onClick={handleSubmit}>Submit</button>
                 </div>
