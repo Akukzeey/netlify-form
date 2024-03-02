@@ -2,69 +2,69 @@
 import React, { useState } from 'react';
 import Step1 from '../../components/StudentForm';
 import Step2 from '../../components/ParentForm';
-import Step3 from '../../components/EmergencyContactForm';
 
 const MultiStepForm = () => {
-    const [step, setStep] = useState(1);
+    const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
-        name: '',
+        // Define initial form data
+        firstName: '',
+        lastName: '',
         email: '',
+        // Add more fields as needed
     });
 
-    const nextStep = () => {
-        setStep(step + 1);
+    const handleNext = (data) => {
+        setFormData(prevData => ({
+            ...prevData,
+            ...data
+        }));
+        setCurrentStep(currentStep + 1);
     };
 
-    const prevStep = () => {
-        setStep(step - 1);
+    const handlePrevious = () => {
+        setCurrentStep(currentStep - 1);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const mergedFormData = {
-            ...formData,
-        };
-        console.log(mergedFormData);
+        // Submit form data to Netlify
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+        })
+            .then(() => {
+                console.log('Form data submitted to Netlify');
+                // Handle success or navigation to another page
+            })
+            .catch(error => console.error('Error submitting form data:', error));
     };
 
     return (
-        <div>
-            {/*{step === 1 && (*/}
-            {/*    <Step1*/}
-            {/*        formData={formData}*/}
-            {/*        setFormData={setFormData}*/}
-            {/*        nextStep={nextStep}*/}
-            {/*    />*/}
-            {/*)}*/}
-            {/*{step === 2 && (*/}
-            {/*    <Step2*/}
-            {/*        formData={formData}*/}
-            {/*        setFormData={setFormData}*/}
-            {/*        prevStep={prevStep}*/}
-            {/*        nextStep={nextStep}*/}
-            {/*    />*/}
-            {/*)}*/}
-            {/*{step === 3 && (*/}
-            {/*    <Step3*/}
-            {/*        formData={formData}*/}
-            {/*        handleSubmit={handleSubmit}*/}
-            {/*    />*/}
-            {/*)}*/}
-            <form name="administration-info" data-netlify="true" method='post' onSubmit={handleSubmit} data-netlify-honeypot='bot-field' action="/success" data-netlify-success="/success">
-                <input type='hidden' name='form-name' value='administration-info'/>
-                <div hidden>
-                    <input name='bot-field'/>
+        <form name="administration Info" data-netlify="true" method='post' data-netlify-honeypot='bot-field' action="/success" data-netlify-success="/success">
+            <input type='hidden' name='form-name' value='administration Info'/>
+            <div hidden>
+                <input name='bot-field'/>
+            </div>
+            {currentStep === 1 && (
+                <Step1
+                    onSubmit={handleNext}
+                />
+            )}
+            {currentStep === 2 && (
+                <Step2
+                    prevStep={handlePrevious}
+                    onSubmit={handleNext}
+                />
+            )}
+            {currentStep === 3 && (
+                <div>
+                   You have agreed all terms to submit the information
+                    <button type="button" onClick={handlePrevious}>Previous</button>
+                    <button type="submit" onClick={handleSubmit}>Submit</button>
                 </div>
-                <input type="text"/>
-
-                {/*<h3>Confirm Details</h3>*/}
-                {/*<p>Name: {formData.name}</p>*/}
-                {/*<p>Email: {formData.email}</p>*/}
-                {/*<button type="button" onClick={prevStep}>Previous</button>*/}
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+            )}
+        </form>
     );
 };
 

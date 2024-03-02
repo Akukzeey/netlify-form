@@ -8,11 +8,6 @@ const Step3 = ({ formData, prevStep, handleSubmit }) => {
                 <input name='bot-field'/>
             </div>
             <input type="text"/>
-
-            {/*<h3>Confirm Details</h3>*/}
-            {/*<p>Name: {formData.name}</p>*/}
-            {/*<p>Email: {formData.email}</p>*/}
-            {/*<button type="button" onClick={prevStep}>Previous</button>*/}
             <button type="submit">Submit</button>
         </form>
     );
