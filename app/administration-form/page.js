@@ -54,9 +54,28 @@ export default function AdministrationForm() {
 
     const [currentStep, setCurrentStep] = useState(1);
 
-    console.log(formData)
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
+
+        try {
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(formData).toString(),
+            });
+
+            if (response.ok) {
+                console.log('Form submitted successfully!');
+                // Optionally, you can redirect the user to a thank you page after successful submission
+                // window.location.href = '/thank-you';
+            } else {
+                console.error('Form submission failed:', response.status);
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+        }
     };
 
     const handleNextStep = () => {
@@ -80,11 +99,18 @@ export default function AdministrationForm() {
                 <div hidden>
                     <input name='bot-field'/>
                 </div>
-                <input type="text"/>
+                {currentStep === 1 && (
+                    <StudentInfo formData={formData.studentInfo} setFormData={setFormData} onNextStep={handleNextStep} />
+                )}
+                {currentStep === 2 && (
+                    <ParentInfo parentFormData={formData.parentInfo} setFormData={setFormData} onNextStep={handleNextStep} onPreviousStep={handlePreviousStep} />
+                )}
+                {currentStep === 3 && (
                     <div>
-                        Once you are submit just know you can not change anything
+                        Once you submit, you cannot change anything.
                         <button type="submit" className="btn btn-success">Submit</button>
                     </div>
+                )}
             </form>
         </div>
     );
