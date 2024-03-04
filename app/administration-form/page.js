@@ -55,27 +55,8 @@ export default function AdministrationForm() {
     const [currentStep, setCurrentStep] = useState(1);
 
     console.log(formData)
-    const handleFormSubmit = async (e) => {
+    const handleFormSubmit = (e) => {
         e.preventDefault();
-
-        try {
-            const response = await fetch('/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(formData).toString(),
-            });
-
-            if (response.ok) {
-                console.log('Form submitted successfully!');
-            } else {
-                console.error('Form submission failed:', response.status);
-            }
-        } catch (error) {
-            console.error('Form submission error:', error);
-
-        }
     };
 
     const handleNextStep = () => {
@@ -99,18 +80,11 @@ export default function AdministrationForm() {
                 <div hidden>
                     <input name='bot-field'/>
                 </div>
-                {currentStep === 1 && (
-                    <StudentInfo formData={formData.studentInfo}  setFormData={setFormData} onNextStep={handleNextStep} />
-                )}
-                {currentStep === 2 && (
-                    <ParentInfo parentFormData={formData.parentInfo} setFormData={setFormData} onNextStep={handleNextStep} onPreviousStep={handlePreviousStep} />
-                )}
-                {currentStep === 3 && (
+                <input type="text"/>
                     <div>
                         Once you are submit just know you can not change anything
                         <button type="submit" className="btn btn-success">Submit</button>
                     </div>
-                )}
             </form>
         </div>
     );
