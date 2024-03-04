@@ -58,7 +58,7 @@ export default function AdministrationForm() {
         e.preventDefault();
 
         try {
-            const response = await fetch('/', {
+            const response = await fetch('https://netlifyform11.netlify.app/administration-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
