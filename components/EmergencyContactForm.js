@@ -1,20 +1,36 @@
-import React from "react";
+import React from 'react';
 
-export default function Step3() {
-    return(
-        <form name="administration Info" data-netlify="true" method='post' data-netlify-honeypot='bot-field' action="/success" data-netlify-success="/success">
-            <input type='hidden' name='form-name' value='administration Info'/>
-            <div hidden>
-                <input name='bot-field'/>
-            </div>
-            <div className="mb-lg-4 mb-md-3 mb-2">
-                <label htmlFor="your-name" className="form-label">Your Name</label>
-                <input type="text" className="form-control" id="your-name" name='your-name' required/>
-            </div>
-            <button type="button">Previous</button>
-            <button type="submit">Submit</button>
-        </form>
-    )
-}
+const Step3 = ({ emergencyData,setFormData }) => {
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        // Update the specific field in studentData
+        setFormData(prevData => ({
+            ...prevData,
+            emergencyData: {
+                ...prevData.emergencyData,
+                [name]: {
+                    ...prevData.emergencyData[name],
+                    value: value
+                }
+            }
+        }));
+    };
+
+    console.log(emergencyData)
+
+    return (
+        <div>
+            STEP 3
+            <input value={emergencyData.placeOfWork.value} type="text" name='placeOfWork' onChange={handleChange}/>
+            <input value={emergencyData.city.value} type="text" name='city' onChange={handleChange}/>
+        </div>
+    );
+
+};
+
+export default Step3;
+
+
 
 
