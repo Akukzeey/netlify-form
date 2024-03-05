@@ -57,21 +57,21 @@ export default function AdministrationForm() {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        // Manually serialize form data into a URL-encoded string
-        const formDataEncoded = Object.keys(formData)
-            .map(key => {
-                return Object.keys(formData[key])
-                    .map(innerKey => encodeURIComponent(`${key}.${innerKey}`) + '=' + encodeURIComponent(formData[key][innerKey]))
-                    .join('&');
-            })
-            .join('&');
+        // Flatten the formData object into a single-level structure
+        const flattenedFormData = Object.keys(formData).reduce((acc, key) => {
+            const nestedData = formData[key];
+            Object.keys(nestedData).forEach(innerKey => {
+                acc[`${key}.${innerKey}`] = nestedData[innerKey];
+            });
+            return acc;
+        }, {});
 
         try {
             // Send a POST request to the Netlify form endpoint
             const response = await fetch('/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formDataEncoded
+                body: new URLSearchParams(flattenedFormData).toString()
             });
 
             // Handle successful form submission
