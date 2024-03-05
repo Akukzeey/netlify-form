@@ -56,12 +56,14 @@ export default function AdministrationForm() {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+        })
+            .then(() => console.log('Form successfully submitted'))
+            .catch((error) => console.error('Error submitting form:', error));
 
-        try {
-            await formData.submit();
-        } catch (error) {
-            console.error('Form submission failed:', error);
-        }
     };
 
     const handleNextStep = () => {
