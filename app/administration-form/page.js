@@ -57,15 +57,21 @@ export default function AdministrationForm() {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        // Convert form data object to URL search params
-        const formDataEncoded = new URLSearchParams(formData);
+        // Manually serialize form data into a URL-encoded string
+        const formDataEncoded = Object.keys(formData)
+            .map(key => {
+                return Object.keys(formData[key])
+                    .map(innerKey => encodeURIComponent(`${key}.${innerKey}`) + '=' + encodeURIComponent(formData[key][innerKey]))
+                    .join('&');
+            })
+            .join('&');
 
         try {
             // Send a POST request to the Netlify form endpoint
             const response = await fetch('/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formDataEncoded.toString()
+                body: formDataEncoded
             });
 
             // Handle successful form submission
@@ -84,6 +90,7 @@ export default function AdministrationForm() {
             // (e.g., display an error message to the user)
         }
     };
+
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);

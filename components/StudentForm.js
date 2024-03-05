@@ -53,7 +53,6 @@ const StudentForm = ({formData,setFormData,onNextStep}) => {
                 errors[key] = false;
             }
         }
-        console.log('Errors:', errors); // Debugging
         setFormErrors({ formData: errors });
         return isValid;
     };
