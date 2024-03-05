@@ -56,14 +56,7 @@ export default function AdministrationForm() {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form data:', formData); // Log the form data
-        fetch('/administration-form', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString()
-        })
-            .then(() => console.log('Form successfully submitted'))
-            .catch((error) => console.error('Error submitting form:', error));
+        console.log('Form submitted:', formData);
     };
 
     const handleNextStep = () => {
@@ -82,7 +75,7 @@ export default function AdministrationForm() {
             <div className="step-indicator">
                 Step {currentStep} of 4
             </div>
-            <form name="administration-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleFormSubmit}>
+            <form name="administration-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleFormSubmit} action="/success" data-netlify-success="/success">
                 <input type="hidden" name="form-name" value="administration-form" />
                 <input type="hidden" name="bot-field" />
                 {currentStep === 1 && (
