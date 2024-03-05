@@ -54,6 +54,7 @@ export default function AdministrationForm() {
 
     const [currentStep, setCurrentStep] = useState(1);
 
+    const siteId = process.env.NEXT_PUBLIC_NETLIFY_SITE_ID;
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
@@ -68,7 +69,7 @@ export default function AdministrationForm() {
 
         try {
             // Send a POST request to the Netlify form endpoint
-            const response = await fetch('/', {
+            const response = await fetch(`https://api.netlify.com/api/v1/sites/${siteId}/submissions`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams(flattenedFormData).toString()
