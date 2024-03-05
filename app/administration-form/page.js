@@ -58,23 +58,9 @@ export default function AdministrationForm() {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://netlifyform11.netlify.app/administration-form', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(formData).toString(),
-            });
-
-            if (response.ok) {
-                console.log('Form submitted successfully!');
-                // Optionally, you can redirect the user to a thank you page after successful submission
-                // window.location.href = '/thank-you';
-            } else {
-                console.error('Form submission failed:', response.status);
-            }
+            await formData.submit();
         } catch (error) {
-            console.error('Form submission error:', error);
+            console.error('Form submission failed:', error);
         }
     };
 
@@ -94,8 +80,8 @@ export default function AdministrationForm() {
             <div className="step-indicator">
                 Step {currentStep} of 4
             </div>
-            <form name="my-form-name" onSubmit={handleFormSubmit}>
-                <input type='hidden' name='form-name' value='my-form-name'/>
+            <form name="administration-form" method="POST" data-netlify="true" onSubmit={handleFormSubmit}>
+                <input type='hidden' name='form-name' value='administration-form'/>
                 <div hidden>
                     <input name='bot-field'/>
                 </div>
