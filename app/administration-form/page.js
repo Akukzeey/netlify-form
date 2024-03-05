@@ -56,7 +56,33 @@ export default function AdministrationForm() {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
+
+        // Convert form data object to URL search params
+        const formDataEncoded = new URLSearchParams(formData);
+
+        try {
+            // Send a POST request to the Netlify form endpoint
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formDataEncoded.toString()
+            });
+
+            // Handle successful form submission
+            if (response.ok) {
+                console.log('Form successfully submitted');
+                // Optionally redirect to a success page:
+                // router.push('/success');
+            } else {
+                console.error('Form submission failed with status:', response.status);
+                // Handle submission errors gracefully
+                // (e.g., display an error message to the user)
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            // Handle network or other errors gracefully
+            // (e.g., display an error message to the user)
+        }
     };
 
     const handleNextStep = () => {
