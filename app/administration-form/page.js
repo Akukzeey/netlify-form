@@ -59,22 +59,28 @@ export default function AdministrationForm() {
 
         const form = e.target;
 
-        // Combine studentInfo and parentInfo into one object
         const combinedFormData = {
             ...formData.studentInfo,
             ...formData.parentInfo
         };
 
-        // Iterate over the combined form data and create hidden input fields
+        const flattenedFormData = {};
         Object.keys(combinedFormData).forEach(key => {
+            if (Array.isArray(combinedFormData[key])) {
+                flattenedFormData[key] = combinedFormData[key][0];
+            } else {
+                flattenedFormData[key] = combinedFormData[key];
+            }
+        });
+
+        Object.keys(flattenedFormData).forEach(key => {
             const input = document.createElement('input');
             input.type = 'hidden';
             input.name = key;
-            input.value = combinedFormData[key];
+            input.value = flattenedFormData[key];
             form.appendChild(input);
         });
 
-        // Submit the form
         form.submit();
     };
 
