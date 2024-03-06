@@ -79,6 +79,7 @@ export default function AdministrationForm() {
     };
 
 
+
     const handleNextStep  = () => {
         setCurrentStep(currentStep + 1);
     };
@@ -98,10 +99,10 @@ export default function AdministrationForm() {
             <form name="administration-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleFormSubmit} action="/success" data-netlify-success="/success">
                 <input type="hidden" name="form-name" value="administration-form" />
                 <input type="hidden" name="bot-field" />
-                {currentStep === 1 && (
+                {currentStep === 2 && (
                     <StudentInfo formData={formData.studentInfo} setFormData={setFormData} onNextStep={handleNextStep} />
                 )}
-                {currentStep === 2 && (
+                {currentStep === 1 && (
                     <ParentInfo parentFormData={formData.parentInfo} setFormData={setFormData} onNextStep={handleNextStep} onPreviousStep={handlePreviousStep} />
                 )}
                 {currentStep === 3 && (
