@@ -78,8 +78,6 @@ export default function AdministrationForm() {
         form.submit();
     };
 
-
-
     const handleNextStep  = () => {
         setCurrentStep(currentStep + 1);
     };
@@ -99,12 +97,12 @@ export default function AdministrationForm() {
             <form name="administration-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleFormSubmit} action="/success" data-netlify-success="/success">
                 <input type="hidden" name="form-name" value="administration-form" />
                 <input type="hidden" name="bot-field" />
-                {currentStep === 2 && (
+                <div className={currentStep !== 1 ? 'hidden' : ''}>
                     <StudentInfo formData={formData.studentInfo} setFormData={setFormData} onNextStep={handleNextStep} />
-                )}
-                {currentStep === 1 && (
+                </div>
+                <div className={currentStep !== 2 ? 'hidden' : ''}>
                     <ParentInfo parentFormData={formData.parentInfo} setFormData={setFormData} onNextStep={handleNextStep} onPreviousStep={handlePreviousStep} />
-                )}
+                </div>
                 {currentStep === 3 && (
                     <div>
                         Once you submit, you cannot change anything.
@@ -118,6 +116,7 @@ export default function AdministrationForm() {
         </div>
     );
 }
+
 
 
 
