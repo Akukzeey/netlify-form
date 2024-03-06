@@ -54,25 +54,25 @@ export default function AdministrationForm() {
 
     const [currentStep, setCurrentStep] = useState(1);
 
-    const siteId = process.env.NEXT_PUBLIC_NETLIFY_SITE_ID;
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        // Flatten the formData object into a single-level structure
-        const flattenedFormData = Object.keys(formData).reduce((acc, key) => {
-            const nestedData = formData[key];
-            Object.keys(nestedData).forEach(innerKey => {
-                acc[`${key}.${innerKey}`] = nestedData[innerKey];
-            });
-            return acc;
-        }, {});
+        const formDataEncoded = Object.keys(formData)
+            .map(key => {
+                return Object.keys(formData[key])
+                    .map(innerKey => encodeURIComponent(`${key}.${innerKey}`) + '=' + encodeURIComponent(formData[key][innerKey]))
+                    .join('&');
+            })
+            .join('&');
+
+        console.log(formDataEncoded)
 
         try {
             // Send a POST request to the Netlify form endpoint
-            const response = await fetch(`https://api.netlify.com/api/v1/sites/${siteId}/submissions`, {
+            const response = await fetch('/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(flattenedFormData).toString()
+                body: formDataEncoded
             });
 
             // Handle successful form submission
@@ -92,8 +92,20 @@ export default function AdministrationForm() {
         }
     };
 
+    console.log(formData.studentInfo)
 
-    const handleNextStep = () => {
+    const test = () => {
+
+        const formDataEncoded = Object.keys(formData)
+            .map(key => {
+                return Object.keys(formData[key])
+                    .map(innerKey => {
+                        console.log(innerKey)
+                    })
+            })
+    }
+
+    const handleNextStep  = () => {
         setCurrentStep(currentStep + 1);
     };
 
@@ -124,6 +136,7 @@ export default function AdministrationForm() {
                         <button type="submit" className="btn btn-success">Submit</button>
                     </div>
                 )}
+                <button onClick={()=>test()}>test</button>
             </form>
         </div>
     );
