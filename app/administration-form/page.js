@@ -78,6 +78,7 @@ export default function AdministrationForm() {
             // Handle successful form submission
             if (response.ok) {
                 console.log('Form successfully submitted');
+                e.target.submit()
                 // Optionally redirect to a success page:
                 // router.push('/success');
             } else {
