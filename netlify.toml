@@ -1,0 +1,4 @@
+[[redirects]]
+from = '/administration-form'
+to = '/'
+status = 200
