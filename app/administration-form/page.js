@@ -57,54 +57,26 @@ export default function AdministrationForm() {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        const formDataEncoded = Object.keys(formData)
-            .map(key => {
-                return Object.keys(formData[key])
-                    .map(innerKey => encodeURIComponent(`${key}.${innerKey}`) + '=' + encodeURIComponent(formData[key][innerKey]))
-                    .join('&');
-            })
-            .join('&');
+        const form = e.target;
 
-        console.log(formDataEncoded)
+        Object.keys(formData.studentInfo).forEach(key => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = formData.studentInfo[key];
+            form.appendChild(input);
+        });
 
-        try {
-            // Send a POST request to the Netlify form endpoint
-            const response = await fetch('/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formDataEncoded
-            });
+        Object.keys(formData.parentInfo).forEach(key => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = formData.parentInfo[key];
+            form.appendChild(input);
+        });
 
-            // Handle successful form submission
-            if (response.ok) {
-                console.log('Form successfully submitted');
-                e.target.submit()
-                // Optionally redirect to a success page:
-                // router.push('/success');
-            } else {
-                console.error('Form submission failed with status:', response.status);
-                // Handle submission errors gracefully
-                // (e.g., display an error message to the user)
-            }
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            // Handle network or other errors gracefully
-            // (e.g., display an error message to the user)
-        }
+        form.submit()
     };
-
-    console.log(formData.studentInfo)
-
-    const test = () => {
-
-        const formDataEncoded = Object.keys(formData)
-            .map(key => {
-                return Object.keys(formData[key])
-                    .map(innerKey => {
-                        console.log(innerKey)
-                    })
-            })
-    }
 
     const handleNextStep  = () => {
         setCurrentStep(currentStep + 1);
@@ -134,7 +106,9 @@ export default function AdministrationForm() {
                 {currentStep === 3 && (
                     <div>
                         Once you submit, you cannot change anything.
-                        <button type="submit" className="btn btn-success">Submit</button>
+                        <div className='d-flex justify-content-center'>
+                            <input type="submit" className='btn sign-up-btn' value='Sign Up'/>
+                        </div>
                     </div>
                 )}
                 <button onClick={()=>test()}>test</button>
