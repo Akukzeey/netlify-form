@@ -21,14 +21,14 @@ export default function RegisterComponent() {
                     const data = await response.json();
                     setSubmissions(data);
                 } else {
-                    console.error('Failed to fetch form submissions');
+                    console.error('Failed to fetch form submissions:', response.status);
                 }
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error fetching form submissions:', error);
             }
         }
         fetchSubmissions();
-    }, []);
+    }, [siteId, accessToken]);
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -44,9 +44,11 @@ export default function RegisterComponent() {
             e.target.submit();
 
             localStorage.setItem('formSubmitted', 'true');
+        } else {
+            // Email already exists, do not submit the form
+            console.log('Email already exists');
         }
     }
-
 
     return (
         <div id='Register'>
@@ -80,4 +82,6 @@ export default function RegisterComponent() {
         </div>
     );
 }
+
+
 
