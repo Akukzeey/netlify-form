@@ -64,6 +64,7 @@ export default function AdministrationForm() {
             ...formData.parentInfo
         };
 
+        // Flatten the object structure
         const flattenedFormData = {};
         Object.keys(combinedFormData).forEach(key => {
             if (Array.isArray(combinedFormData[key])) {
@@ -73,16 +74,17 @@ export default function AdministrationForm() {
             }
         });
 
-        Object.keys(flattenedFormData).forEach(key => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = key;
-            input.value = flattenedFormData[key];
-            form.appendChild(input);
-        });
+        // Create a textarea to display the key-value pairs
+        const textArea = document.createElement('textarea');
+        textArea.style.display = 'none';
+        textArea.name = 'formData';
+        textArea.value = JSON.stringify(flattenedFormData, null, 2); // Stringify the object
+        form.appendChild(textArea);
 
+        // Submit the form
         form.submit();
     };
+
 
     const handleNextStep  = () => {
         setCurrentStep(currentStep + 1);
