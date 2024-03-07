@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import StudentInfo from "@/components/StudentForm";
 import ParentInfo from "@/components/ParentForm";
+import EmergencyInfo from "@/components/EmergencyContactForm";
 
 export default function AdministrationForm() {
     const [formData, setFormData] = useState({
@@ -50,6 +51,17 @@ export default function AdministrationForm() {
             parent2ZipCode: '',
             parent2EmailAddress: '',
         },
+        emergencyInfo: {
+            emergencyFullName: '',
+            emergencyRelationship: '',
+            emergencyAddress: '',
+            emergencyCellPhone: '',
+            emergencyAptUnit: '',
+            emergencyCity: '',
+            emergencyState: '',
+            emergencyZipCode: '',
+            emergencyEmailAddress: '',
+        }
     });
 
     const [currentStep, setCurrentStep] = useState(1);
@@ -64,7 +76,6 @@ export default function AdministrationForm() {
             ...formData.parentInfo
         };
 
-        // Flatten the object structure
         const flattenedFormData = {};
         Object.keys(combinedFormData).forEach(key => {
             if (Array.isArray(combinedFormData[key])) {
@@ -74,17 +85,14 @@ export default function AdministrationForm() {
             }
         });
 
-        // Create a textarea to display the key-value pairs
         const textArea = document.createElement('textarea');
         textArea.style.display = 'none';
         textArea.name = 'formData';
         textArea.value = JSON.stringify(flattenedFormData, null, 2); // Stringify the object
         form.appendChild(textArea);
 
-        // Submit the form
         form.submit();
     };
-
 
     const handleNextStep  = () => {
         setCurrentStep(currentStep + 1);
@@ -105,11 +113,14 @@ export default function AdministrationForm() {
             <form name="administration-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleFormSubmit}>
                 <input type="hidden" name="form-name" value="administration-form" />
                 <input type="hidden" name="bot-field" />
-                <div className={currentStep !== 1 ? 'hidden' : ''}>
+                <div className={currentStep !== 3 ? 'hidden' : ''}>
                     <StudentInfo formData={formData.studentInfo} setFormData={setFormData} onNextStep={handleNextStep} />
                 </div>
                 <div className={currentStep !== 2 ? 'hidden' : ''}>
                     <ParentInfo parentFormData={formData.parentInfo} setFormData={setFormData} onNextStep={handleNextStep} onPreviousStep={handlePreviousStep} />
+                </div>
+                <div className={currentStep !== 1 ? 'hidden' : ''}>
+                    <EmergencyInfo emergencyFormData={formData.emergencyInfo} setFormData={setFormData} onNextStep={handleNextStep} onPreviousStep={handlePreviousStep} parentInfo={formData.parentInfo}/>
                 </div>
                 {currentStep === 3 && (
                     <div>
@@ -119,12 +130,10 @@ export default function AdministrationForm() {
                         </div>
                     </div>
                 )}
-                <button onClick={()=>test()}>test</button>
             </form>
         </div>
     );
 }
-
 
 
 
