@@ -165,6 +165,7 @@ export default function AdministrationForm() {
         };
 
         const flattenedFormData = {};
+
         Object.keys(combinedFormData).forEach(key => {
             if (Array.isArray(combinedFormData[key])) {
                 flattenedFormData[key] = combinedFormData[key][0];
